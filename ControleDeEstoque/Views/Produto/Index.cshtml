@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ControleDeEstoque.Domain.Entities.ProdutoModel>;
+
+@{
+    Layout = "_Layout";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col"># ID</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Estoque</th>
+            <th scope="col">Data de Criação</th>
+            <th scope="col">Botões</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.cdProduto</th>
+                    <td>@item.nmProduto</td>
+                    <td>@item.Preco.ToString("C")</td>
+                    <td>@item.qtdEstoque</td>
+                    <td>@item.dtCriacao.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a class="btn btn-success" asp-controller="Produto" asp-action="EntradaProduto" asp-route-id="@item.cdProduto">
+                            Entrada
+                        </a>
+                        <button type="button" class="btn btn-danger" onclick="abrirModal(@item.cdProduto)">
+                            Excluir Produto
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">Nenhum produto encontrado.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" asp-controller="Produto" asp-action="AdicionarProduto">
+    Adicionar
+</a>
+
+@* <div class="modal-body" id="conteudoModal">
+    Carregando...
+</div> *@
+
+<div class="modal fade" id="meuModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- O id="conteudoModal" é onde o JavaScript vai injetar tudo da ConfirmacaoDeExclusao -->
+        <div class="modal-content" id="conteudoModal">
+        </div>
+    </div>
+</div>
+
+<script>
+    async function abrirModal(id) {
+        try {
+            debugger;
+            const response = await fetch('/Produto/ConfirmacaoDeExclusao?id=' + id);
+
+            if (!response.ok) {
+                console.error('Erro na requisição: ', response.status);
+                return;
+            }
+
+            const html = await response.text();
+
+            // Injeta o HTML dentro da div modal-content
+            document.getElementById('conteudoModal').innerHTML = html;
+
+            // Ativa e mostra o modal
+            const modalElement = document.getElementById('meuModal');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+
+        } catch (error) {
+            console.error("Erro no JavaScript: ", error);
+        }
+    }
+</script>

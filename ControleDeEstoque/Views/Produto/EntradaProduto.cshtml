@@ -1,0 +1,21 @@
+﻿@model ControleDeEstoque.Domain.Entities.ProdutoModel
+@{
+    Layout = "_Layout";
+}
+
+<form asp-controller="Produto" asp-action="EntradaProduto" method="post">
+    <input type="hidden" name="id" value="@Model.cdProduto" />
+
+    <div class="form-group">
+        <label for="quantidade" class="fw-bold">Quantidade</label>
+        <input type="number" name="quantidade" class="form-control" required min="1">
+    </div>
+
+   
+
+
+    <br />
+    <button type="submit" class="btn btn-success">Adicionar</button>
+
+    <a class="btn btn-secondary" asp-controller="Produto" asp-action="Index">Voltar</a>
+</form>

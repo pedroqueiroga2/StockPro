@@ -1,0 +1,258 @@
+﻿@model ControleDeEstoque.Domain.Entities.ProdutoModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal-overlay">
+    <div class="modal-container">
+        <!-- Cabeçalho -->
+        <div class="modal-header">
+            <div class="modal-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 8V12M12 16H12.01M3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <h3 class="modal-title">Excluir produto</h3>
+        </div>
+
+        <!-- Corpo -->
+        <div class="modal-body">
+            <p class="modal-message">
+                Tem certeza que deseja excluir <strong>@Model.nmProduto</strong>?
+                <span class="warning-text">Esta ação é irreversível.</span>
+            </p>
+
+            <div class="product-details">
+              
+
+                @if (Model.qtdEstoque > 0)
+                {
+                    <div class="detail-item">
+                        <span class="detail-label">Estoque</span>
+                        <span class="detail-value">@Model.qtdEstoque un.</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Rodapé -->
+        <div class="modal-footer">
+            <a class="btn btn-secondary" asp-controller="Produto" asp-action="Index">
+                Cancelar
+            </a>
+            <form asp-controller="Produto" asp-action="ExcluirProduto" method="post" style="margin: 0;">
+                <input type="hidden" name="id" value="@Model.cdProduto" />
+                <button type="submit" class="btn btn-danger">
+                    Sim, excluir
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Overlay mais leve */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    /* Container do Modal */
+    .modal-container {
+        background: white;
+        border-radius: 12px;
+        max-width: 90%;
+        width: 400px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        animation: fadeIn 0.15s ease-out;
+    }
+
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    }
+
+    /* Cabeçalho */
+    .modal-header {
+        padding: 20px 20px 0 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .modal-icon {
+        color: #dc2626;
+        background-color: #fef2f2;
+        border-radius: 8px;
+        padding: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-title {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: #1a1a1a;
+        margin: 0;
+    }
+
+    /* Corpo */
+    .modal-body {
+        padding: 16px 20px;
+    }
+
+    .modal-message {
+        color: #4b5563;
+        margin: 0 0 16px 0;
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+
+        .modal-message strong {
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+    .warning-text {
+        display: block;
+        color: #dc2626;
+        font-size: 0.75rem;
+        margin-top: 6px;
+    }
+
+    /* Detalhes do Produto - mais leve */
+    .product-details {
+        background-color: #fafafa;
+        border-radius: 8px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 0.8125rem;
+    }
+
+    .detail-label {
+        color: #6b7280;
+    }
+
+    .detail-value {
+        color: #1a1a1a;
+        font-weight: 500;
+    }
+
+    /* Rodapé */
+    .modal-footer {
+        padding: 12px 20px 20px 20px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    /* Botões */
+    .btn {
+        padding: 6px 16px;
+        border-radius: 6px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        cursor: pointer;
+        border: none;
+        background: none;
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        color: #6b7280;
+    }
+
+        .btn-secondary:hover {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+
+    .btn-danger {
+        background-color: #dc2626;
+        color: white;
+    }
+
+        .btn-danger:hover {
+            background-color: #b91c1c;
+        }
+
+    /* Responsividade */
+    @@media (max-width: 640px) {
+        .modal-container
+
+    {
+        width: 340px;
+    }
+
+    .modal-header {
+        padding: 16px 16px 0 16px;
+    }
+
+    .modal-body {
+        padding: 12px 16px;
+    }
+
+    .modal-footer {
+        padding: 10px 16px 16px 16px;
+    }
+
+    .detail-item {
+        font-size: 0.75rem;
+    }
+
+    .btn {
+        padding: 5px 14px;
+        font-size: 0.75rem;
+    }
+
+    }
+
+    /* Fallback */
+    body:has(.modal-overlay) {
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.querySelector('.modal-overlay');
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    window.location.href = '@Url.Action("Index", "Produto")';
+                }
+            });
+            document.body.style.overflow = 'hidden';
+        }
+    });
+</script>
