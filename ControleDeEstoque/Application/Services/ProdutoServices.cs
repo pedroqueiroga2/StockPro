@@ -49,6 +49,23 @@ namespace ControleDeEstoque.Application.Services
             return await _produtoRepository.AtualizarProduto(produtoAtualizado);
         }
 
+        public async Task<IEnumerable<ProdutoModel>> BuscaProduto(string nome)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(nome))
+                {
+                    return await _produtoRepository.BuscaProduto(nome);
+                }
+                 return await _produtoRepository.ObterTodos();
+             
+            }
+            catch (Exception ex) 
+            {
+                throw ex;
+            }
+        }
+
         public async Task<ProdutoModel> CadastrarProduto(ProdutoDto produto)
         {
             try {

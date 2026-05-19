@@ -12,6 +12,8 @@ public interface IProdutoRepository
 
     Task<ProdutoModel> AtualizarProduto(int id);
 
+    Task<IEnumerable<ProdutoModel>> BuscaProduto(string nome);
+
 
 
 }

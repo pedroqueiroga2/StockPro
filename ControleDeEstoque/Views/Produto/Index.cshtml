@@ -3,6 +3,23 @@
 @{
     Layout = "_Layout";
 }
+
+<form asp-action="Index" method="get">
+    <div class="input-group mb-3">
+        <!-- O 'name' aqui DEVE ser igual ao parâmetro da Controller -->
+        <input type="text"
+               name="nome"
+               class="form-control"
+               placeholder="Digite o nome do produto..."
+               aria-label="Buscar produto">
+
+        <!-- Alterado para type="submit" para disparar a busca -->
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+            Buscar
+        </button>
+    </div>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>

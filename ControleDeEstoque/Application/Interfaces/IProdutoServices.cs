@@ -11,4 +11,5 @@ public interface IProdutoServices
     Task<bool> ExcluirProduto(int id);
     Task<ProdutoModel> ObterProdutoPorId(int id);
     Task<ProdutoModel> AdicionarEntradaProduto(int id, int quantidade);
+    Task<IEnumerable<ProdutoModel>> BuscaProduto(string nome);
 }

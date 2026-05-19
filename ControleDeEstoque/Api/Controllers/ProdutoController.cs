@@ -2,6 +2,7 @@
 using ControleDeEstoque.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace ControleDeEstoque.Api.Controllers;
 
 
@@ -20,10 +21,21 @@ public class ProdutoController : Controller
 
 
      [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string nome)
     {
-        var todos = await _produtoServices.ObterTodos();
-        return View(todos);
+        try
+        {
+
+            // Se não encontrar o produto, retorna erro 404
+            return View(await _produtoServices.BuscaProduto(nome));
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+
+
+
     }
 
     [HttpGet]
@@ -42,6 +54,7 @@ public class ProdutoController : Controller
         return View();
     }
 
+    [HttpGet]
     public async Task<IActionResult> EntradaProduto(int id)
     {
         var produto = await _produtoServices.ObterProdutoPorId(id);
@@ -53,6 +66,7 @@ public class ProdutoController : Controller
         // 2. Envia o produto encontrado para a View!
         return View(produto);
     }
+ 
 
 
 

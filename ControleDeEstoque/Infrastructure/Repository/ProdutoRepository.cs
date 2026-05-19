@@ -2,6 +2,7 @@
 using ControleDeEstoque.Domain.Entities;
 using ControleDeEstoque.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
+using Fastenshtein;
 
 namespace ControleDeEstoque.Infrastructure.Repository;
 
@@ -39,6 +40,42 @@ public class ProdutoRepository : IProdutoRepository
         {
             throw new Exception("Erro: ", ex);
         }
+    }
+
+    public async Task<IEnumerable<ProdutoModel>> BuscaProduto(string nome)
+    {
+        var listaProdutos = (await ObterTodos()).ToList();
+
+  
+
+        var nomeDigitado = nome.Trim().ToUpper();
+
+        var listaProdutosFiltrados = listaProdutos.Where(a =>
+        {
+            if (string.IsNullOrEmpty(a.nmProduto)) return false;
+
+            var nomeProdutoBanco = a.nmProduto.Trim().ToUpper();
+
+            // 1. Se conter o texto exato (ex: digitou "Headset" ou "7.1"), já entra direto
+            if (nomeProdutoBanco.Contains(nomeDigitado)) return true;
+
+            // 2. Quebra o nome do banco por espaços (vai virar um array: ["HEADSET", "7.1"])
+            var palavrasDoProduto = nomeProdutoBanco.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            // 3. Compara a sua busca com cada palavra isolada do produto
+            foreach (var palavra in palavrasDoProduto)
+            {
+                // Se a distância de "headser" para "HEADSET" for menor ou igual a 2, funcionou!
+                if (Levenshtein.Distance(palavra, nomeDigitado) <= 2)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }).ToList();
+
+        return listaProdutosFiltrados;
     }
 
     public async Task<ProdutoModel> CadastrarProduto(ProdutoModel produto)
