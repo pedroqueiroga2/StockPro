@@ -3,6 +3,7 @@ using System;
 using ControleDeEstoque.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleDeEstoque.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260520214546_MotivosMigrations")]
+    partial class MotivosMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,17 +33,14 @@ namespace ControleDeEstoque.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("cdMotivo"));
 
-                    b.Property<bool?>("cancelado")
-                        .HasColumnType("boolean");
+                    b.Property<int>("cancelado")
+                        .HasColumnType("integer");
 
                     b.Property<string>("dsMotivo")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("dtAlteracao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("dtCriacao")
+                    b.Property<DateTime>("dtCriacao")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("nmMotivo")

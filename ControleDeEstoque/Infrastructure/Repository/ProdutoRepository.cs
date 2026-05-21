@@ -18,7 +18,7 @@ public class ProdutoRepository : IProdutoRepository
 
     public async Task<ProdutoModel> AtualizarProduto(ProdutoModel produto)
     {
-        _context.Produtos.Update(produto);
+        _context.cadProdutos.Update(produto);
         await _context.SaveChangesAsync();
         return (produto);
     }
@@ -82,7 +82,7 @@ public class ProdutoRepository : IProdutoRepository
     {
         try
         {
-            await _context.Produtos.AddAsync(produto);
+            await _context.cadProdutos.AddAsync(produto);
             await _context.SaveChangesAsync();
             return produto;
 
@@ -103,7 +103,7 @@ public class ProdutoRepository : IProdutoRepository
             {
                 throw new Exception($"Você não pode excluir um produto que não existe");
             }
-            _context.Produtos.Remove(produtoPraExcluir);
+            _context.cadProdutos.Remove(produtoPraExcluir);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -119,7 +119,7 @@ public class ProdutoRepository : IProdutoRepository
     {
         try
         {
-            return await _context.Produtos.FirstOrDefaultAsync(a => a.cdProduto == id);
+            return await _context.cadProdutos.FirstOrDefaultAsync(a => a.cdProduto == id);
         }
         catch (Exception ex)
         {
@@ -129,6 +129,6 @@ public class ProdutoRepository : IProdutoRepository
 
     public async Task<IEnumerable<ProdutoModel>> ObterTodos()
     {
-        return await _context.Produtos.ToListAsync();
+        return await _context.cadProdutos.ToListAsync();
     }
 }

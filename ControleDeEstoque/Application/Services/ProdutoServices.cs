@@ -117,5 +117,16 @@ namespace ControleDeEstoque.Application.Services
             }
             return ListarTodos;
         }
+
+        public async Task<ProdutoModel> SaidaDeProduto(int id, int quantidade)
+        {
+            var produto = await ObterProdutoPorId(id);
+
+            if (produto != null) 
+            {
+                produto.qtdEstoque -= quantidade;
+            }
+            return await _produtoRepository.AtualizarProduto(id);
+        }
     }
 }

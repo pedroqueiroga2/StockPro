@@ -66,6 +66,18 @@ public class ProdutoController : Controller
         // 2. Envia o produto encontrado para a View!
         return View(produto);
     }
+    [HttpGet]
+    public async Task<IActionResult> SaidaProduto(int id)
+    {
+        var produto = await _produtoServices.ObterProdutoPorId(id);
+
+        // Se não encontrar o produto, retorna erro 404
+        if (produto == null)
+            return NotFound("Produto não encontrado.");
+
+        // 2. Envia o produto encontrado para a View!
+        return View(produto);
+    }
  
 
 
@@ -104,6 +116,21 @@ public class ProdutoController : Controller
         try
         {
             var produto = await _produtoServices.AdicionarEntradaProduto(id, quantidade);
+            return RedirectToAction("Index");
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> SaidaProduto(int id, int quantidade)
+    {
+        try
+        {
+            var produto = await _produtoServices.SaidaDeProduto(id, quantidade);
             return RedirectToAction("Index");
         }
         catch

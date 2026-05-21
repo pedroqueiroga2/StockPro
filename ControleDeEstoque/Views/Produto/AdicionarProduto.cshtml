@@ -4,6 +4,18 @@
 @{
     Layout = "_Layout";
 }
+<style>
+    .sem-seta::-webkit-inner-spin-button,
+    .sem-seta::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .sem-seta {
+        -moz-appearance: textfield;
+    }
+
+</style>
 <form asp-controller="Produto" asp-action="CadastrarProduto" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="nome" class="fw-bold">Informe o nome do produto</label>

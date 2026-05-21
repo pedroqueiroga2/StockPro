@@ -1,6 +1,9 @@
-﻿@model ControleDeEstoque.Domain.Entities.ProdutoModel
+﻿@model ControleDeEstoque.Domain.Entities.ProdutoModel;
+
 @{
+  
     Layout = "_Layout";
+
 }
 <style>
     .sem-seta::-webkit-inner-spin-button,
@@ -14,19 +17,25 @@
     }
 
 </style>
-<form asp-controller="Produto" asp-action="EntradaProduto" method="post">
+<h2>@Model.nmProduto</h2>
+<form asp-controller="Produto" asp-action="SaidaProduto" method="post">
     <input type="hidden" name="id" value="@Model.cdProduto" />
 
     <div class="form-group">
-        <label for="quantidade" class="fw-bold">Quantidade</label>
+        <label for="quantidade" class="fw-bold">Informe a quantidade de produtos de saída</label>
         <input type="number" name="quantidade" class="form-control sem-seta" required min="1">
     </div>
 
-   
+
 
 
     <br />
-    <button type="submit" class="btn btn-success">Adicionar</button>
+    <button type="submit" class="btn btn-success">Saída</button>
 
     <a class="btn btn-secondary" asp-controller="Produto" asp-action="Index">Voltar</a>
 </form>
+
+<script>
+
+
+</script>

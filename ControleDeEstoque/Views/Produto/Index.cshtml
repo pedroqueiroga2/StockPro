@@ -50,6 +50,10 @@
                         <button type="button" class="btn btn-danger" onclick="abrirModal(@item.cdProduto)">
                             Excluir Produto
                         </button>
+
+                        <a class="btn btn-danger" asp-controller="Produto" asp-action="SaidaProduto" asp-route-id="@item.cdProduto">
+                            Saída
+                        </a>
                     </td>
                 </tr>
             }
@@ -67,6 +71,7 @@
 <a class="btn btn-primary" asp-controller="Produto" asp-action="AdicionarProduto">
     Adicionar
 </a>
+
 
 @* <div class="modal-body" id="conteudoModal">
     Carregando...

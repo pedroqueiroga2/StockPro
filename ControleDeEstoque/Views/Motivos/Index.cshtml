@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ControleDeEstoque.Domain.Entities.MotivosModel>;
+
+
+@{
+    Layout = "_Layout";
+}
+
+<style>
+    /* Estilos para fixar as larguras da tabela */
+    .w-90 {
+        width: 90%;
+    }
+
+    .w-10 {
+        width: 10%;
+    }
+</style>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" class="w-90">Motivo</th>
+            <th scope="col" class="w-10 text-center">Ações</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td class="w-90 align-middle">
+                        @item.nmMotivo
+                    </td>
+
+                    <td class="w-10 align-middle text-nowrap text-center" id="Detalhes">
+                        <i class="bi bi-card-list" onclick="abrirModal(@item.cdMotivo)"></i>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">Nenhum produto encontrado.</td>
+            </tr>
+        }
+    </tbody>
+
+
+
+</table>
+
+<div class="modal fade" id="meuModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- O id="conteudoModal" é onde o JavaScript vai injetar tudo da ConfirmacaoDeExclusao -->
+        <div class="modal-content" id="conteudoModal">
+        </div>
+    </div>
+</div>
+<script>
+
+   async  function abrirModal(id)
+    {
+      try {
+             debugger;
+             const response = await fetch('/Motivos/Details?id=' + id);
+
+             if (!response.ok) {
+                 console.error('Erro na requisição: ', response.status);
+                 return;
+             }
+
+             const html = await response.text();
+
+             // Injeta o HTML dentro da div modal-content
+             document.getElementById('conteudoModal').innerHTML = html;
+
+             // Ativa e mostra o modal
+             const modalElement = document.getElementById('meuModal');
+             const modal = new bootstrap.Modal(modalElement);
+             modal.show();
+
+         } catch (error) {
+             console.error("Erro no JavaScript: ", error);
+         }
+    }
+</script>

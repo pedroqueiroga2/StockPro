@@ -16,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IProdutoServices, ProdutoServices>();
+builder.Services.AddScoped<IMotivosRepository, MotivosRepository>();
+builder.Services.AddScoped<IMotivosServices, MotivosServices>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

@@ -1,0 +1,57 @@
+﻿@model ControleDeEstoque.Domain.Entities.MotivosModel
+
+
+@{
+    Layout = null;
+}
+
+
+
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="modalDetalhesLabel">
+                    <i class="bi bi-info-circle text-primary me-2"></i> Detalhes do Motivo
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Código:</dt>
+                    <dd class="col-sm-8 fw-bold">@Model.cdMotivo</dd>
+
+                    <hr class="my-2 opacity-25">
+
+                    <dt class="col-sm-4 text-muted">Nome:</dt>
+                    <dd class="col-sm-8">@Model.nmMotivo</dd>
+
+                    <hr class="my-2 opacity-25">
+
+                    <dt class="col-sm-4 text-muted">Descrição:</dt>
+                    <dd class="col-sm-8 text-break">@Model.dsMotivo</dd>
+
+                    <hr class="my-2 opacity-25">
+
+                    <dt class="col-sm-4 text-muted">Criado em:</dt>
+                    <dd class="col-sm-8">@(Model.dtCriacao?.ToString("dd/MM/yyyy HH:mm") ?? "--")</dd>
+
+                    <hr class="my-2 opacity-25">
+
+                    <dt class="col-sm-4 text-muted">Status:</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.cancelado == true)
+                        {
+                            <span class="badge bg-danger">Cancelado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Ativo</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+
+

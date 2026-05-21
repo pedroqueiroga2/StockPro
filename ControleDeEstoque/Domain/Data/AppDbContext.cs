@@ -9,6 +9,7 @@ namespace ControleDeEstoque.Domain.Data
         {
         }
 
-        public DbSet<ProdutoModel> Produtos { get; set; }
+        public DbSet<ProdutoModel> cadProdutos { get; set; }
+        public DbSet<MotivosModel> cadMotivos { get; set; }
     }
 }
