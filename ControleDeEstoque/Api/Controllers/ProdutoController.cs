@@ -9,18 +9,17 @@ namespace ControleDeEstoque.Api.Controllers;
 public class ProdutoController : Controller
 {
     private readonly IProdutoServices _produtoServices;
+    private readonly IMotivosServices _motivosServices;
 
-    public ProdutoController(IProdutoServices produtoServices)
+  
+
+    public ProdutoController(IProdutoServices produtoServices, IMotivosServices motivosServices)
     {
         _produtoServices = produtoServices;
+        _motivosServices = motivosServices;
     }
 
-
-    
-
-
-
-     [HttpGet]
+    [HttpGet]
     public async Task<IActionResult> Index(string nome)
     {
         try
@@ -78,7 +77,25 @@ public class ProdutoController : Controller
         // 2. Envia o produto encontrado para a View!
         return View(produto);
     }
- 
+
+    [HttpGet]
+    public async Task<IActionResult> ListarMotivoSaida()
+    {
+        try
+        {
+
+            // Se não encontrar o produto, retorna erro 404
+            return View(await _motivosServices.ListaMotivosDeSaida());
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+
+
+
+    }
+
 
 
 

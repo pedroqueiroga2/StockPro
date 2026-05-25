@@ -10,9 +10,12 @@ namespace ControleDeEstoque.Application.Services
 
         private readonly IProdutoRepository _produtoRepository;
 
-        public ProdutoServices(IProdutoRepository produtoRepository)
+        private readonly IMovimentacaoEstoqueServices _movimentacaoEstoqueServices;
+
+        public ProdutoServices(IProdutoRepository produtoRepository, IMovimentacaoEstoqueServices movimentacaoEstoqueServices)
         {
             _produtoRepository = produtoRepository;
+            _movimentacaoEstoqueServices = movimentacaoEstoqueServices;
         }
 
         public async Task<ProdutoModel> AdicionarEntradaProduto(int id, int quantidade)
@@ -125,6 +128,9 @@ namespace ControleDeEstoque.Application.Services
             if (produto != null) 
             {
                 produto.qtdEstoque -= quantidade;
+
+                var valorTotalSaida = produto.Preco * quantidade;
+               await  _movimentacaoEstoqueServices.Create(id, 2, produto.Preco, valorTotalSaida, produto.qtdEstoque);
             }
             return await _produtoRepository.AtualizarProduto(id);
         }

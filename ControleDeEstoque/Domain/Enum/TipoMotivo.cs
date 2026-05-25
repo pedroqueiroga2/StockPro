@@ -3,5 +3,5 @@
 public enum TipoMotivo
 {
 Entrada = 1,
-Sida = 2
+Saida = 2
 }

@@ -1,6 +1,7 @@
 ﻿using ControleDeEstoque.Application.Interfaces;
 using ControleDeEstoque.Domain.Entities;
 using ControleDeEstoque.Domain.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeEstoque.Application.Services;
 
@@ -68,6 +69,29 @@ public class MotivosServices : IMotivosServices
            
 
             return novoMotivo;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public async Task<IEnumerable<MotivosModel>> ListaMotivosDeSaida()
+    {
+        try
+        {
+            return await _motivosRepository.ListaMotivosPeloTipo(2);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    public async Task<IEnumerable<MotivosModel>> ListaMotivosDeEntrada()
+    {
+        try
+        {
+            return await _motivosRepository.ListaMotivosPeloTipo(1);
         }
         catch (Exception ex)
         {

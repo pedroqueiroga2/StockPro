@@ -3,6 +3,7 @@ using System;
 using ControleDeEstoque.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleDeEstoque.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260525155257_TipoMotivoo")]
+    partial class TipoMotivoo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,64 +58,6 @@ namespace ControleDeEstoque.Migrations
                     b.ToTable("cadMotivos");
                 });
 
-            modelBuilder.Entity("ControleDeEstoque.Domain.Entities.MovimentacaoEstoqueModel", b =>
-                {
-                    b.Property<int>("cdMovimentacaoEstoque")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("cdMovimentacaoEstoque"));
-
-                    b.Property<int>("MotivocdMotivo")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProdutocdProduto")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("cancelado")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("cdMotivo")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("cdProduto")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("dsObservacao")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("dtAlteracao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("dtMovimentacao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("qtMovimentacao")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("qtSaldoFinal")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("tpMovimentacao")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("vlTotal")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal?>("vlUnitario")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("cdMovimentacaoEstoque");
-
-                    b.HasIndex("MotivocdMotivo");
-
-                    b.HasIndex("ProdutocdProduto");
-
-                    b.ToTable("cadMovimentacaoEstoque");
-                });
-
             modelBuilder.Entity("ControleDeEstoque.Domain.Entities.ProdutoModel", b =>
                 {
                     b.Property<int>("cdProduto")
@@ -144,25 +89,6 @@ namespace ControleDeEstoque.Migrations
                     b.HasKey("cdProduto");
 
                     b.ToTable("cadProdutos");
-                });
-
-            modelBuilder.Entity("ControleDeEstoque.Domain.Entities.MovimentacaoEstoqueModel", b =>
-                {
-                    b.HasOne("ControleDeEstoque.Domain.Entities.MotivosModel", "Motivo")
-                        .WithMany()
-                        .HasForeignKey("MotivocdMotivo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ControleDeEstoque.Domain.Entities.ProdutoModel", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutocdProduto")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Motivo");
-
-                    b.Navigation("Produto");
                 });
 #pragma warning restore 612, 618
         }

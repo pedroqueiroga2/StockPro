@@ -10,4 +10,5 @@ public interface IMotivosRepository
     Task<MotivosModel> AtualizarMotivo(MotivosModel motivo);
     Task<MotivosModel> ObterMotivoPorId(int id);
     Task<IEnumerable<MotivosModel>> ListaTodosMotivos();
+    Task<IEnumerable<MotivosModel>> ListaMotivosPeloTipo(int tpMotivo);
 }

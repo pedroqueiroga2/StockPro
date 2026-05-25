@@ -12,4 +12,8 @@ public interface IMotivosServices
     Task<MotivosModel> EditMotivo(MotivosModel motivo);
     Task<MotivosModel> ObterMotivoPorId(int id);
     Task<IEnumerable<MotivosModel>> ListaTodosMotivos();
+
+    Task<IEnumerable<MotivosModel>> ListaMotivosDeEntrada();
+
+    Task<IEnumerable<MotivosModel>> ListaMotivosDeSaida();
 }

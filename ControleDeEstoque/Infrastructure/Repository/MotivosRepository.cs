@@ -50,6 +50,20 @@ public class MotivosRepository: IMotivosRepository
         }
     }
 
+
+    public async Task<IEnumerable<MotivosModel>> ListaMotivosPeloTipo(int tpMotivo)
+    {
+        try
+        {
+            var listaDeMotivosPorTipo = await _context.cadMotivos.Where(a => (int)a.tpMotivo == tpMotivo).ToListAsync();
+                return listaDeMotivosPorTipo;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
     public async Task<MotivosModel> ExcluirMotivo(MotivosModel motivo)
     {
         try

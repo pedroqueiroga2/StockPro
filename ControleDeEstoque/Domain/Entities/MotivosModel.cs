@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ControleDeEstoque.Domain.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeEstoque.Domain.Entities;
 
@@ -13,4 +14,7 @@ public class MotivosModel
     public DateTime? dtAlteracao { get; set; }
 
     public bool? cancelado { get; set; }
+
+    public TipoMotivo tpMotivo { get; set; }
+
 }

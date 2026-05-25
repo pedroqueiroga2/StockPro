@@ -11,5 +11,6 @@ namespace ControleDeEstoque.Domain.Data
 
         public DbSet<ProdutoModel> cadProdutos { get; set; }
         public DbSet<MotivosModel> cadMotivos { get; set; }
+        public DbSet<MovimentacaoEstoqueModel> cadMovimentacaoEstoque { get; set; }
     }
 }
