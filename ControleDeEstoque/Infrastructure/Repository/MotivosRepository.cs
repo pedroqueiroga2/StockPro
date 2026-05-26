@@ -85,7 +85,7 @@ public class MotivosRepository: IMotivosRepository
     {
         try
         {
-            var ListaDEMotivos = await _context.cadMotivos.ToListAsync();
+            var ListaDEMotivos = await _context.cadMotivos.OrderBy(a=> a.nmMotivo).ToListAsync();
 
 
             return ListaDEMotivos;

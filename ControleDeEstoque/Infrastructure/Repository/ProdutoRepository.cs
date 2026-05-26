@@ -73,7 +73,7 @@ public class ProdutoRepository : IProdutoRepository
             }
 
             return false;
-        }).ToList();
+        }).OrderBy(a=>a.nmProduto).ToList();
 
         return listaProdutosFiltrados;
     }
@@ -129,6 +129,6 @@ public class ProdutoRepository : IProdutoRepository
 
     public async Task<IEnumerable<ProdutoModel>> ObterTodos()
     {
-        return await _context.cadProdutos.ToListAsync();
+        return await _context.cadProdutos.OrderBy(a=>a.nmProduto).ToListAsync();
     }
 }
