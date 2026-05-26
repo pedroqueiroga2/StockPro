@@ -24,7 +24,7 @@ public class MotivosServices : IMotivosServices
             {
                 motivoCadastrado.nmMotivo = motivo.nmMotivo;
                 motivoCadastrado.dsMotivo = motivo.dsMotivo;
-                motivoCadastrado.dtAlteracao = DateTime.Now;
+                motivoCadastrado.dtAlteracao = DateTime.UtcNow;
             }
            
                 return motivoCadastrado;
@@ -63,7 +63,7 @@ public class MotivosServices : IMotivosServices
             {
                 nmMotivo = motivo.nmMotivo,
                 dsMotivo = motivo.dsMotivo,
-                dtCriacao = DateTime.Now
+                dtCriacao = DateTime.UtcNow
             };
             await _motivosRepository.CriarMotivos(novoMotivo);
            

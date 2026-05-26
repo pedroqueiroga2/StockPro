@@ -131,8 +131,9 @@ namespace ControleDeEstoque.Application.Services
 
                 var valorTotalSaida = produto.Preco * quantidade;
                await  _movimentacaoEstoqueServices.Create(id, 2, produto.Preco, valorTotalSaida, produto.qtdEstoque);
+                await _produtoRepository.AtualizarProduto(id);
             }
-            return await _produtoRepository.AtualizarProduto(id);
+            return produto;
         }
     }
 }

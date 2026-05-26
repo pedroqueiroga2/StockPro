@@ -3,6 +3,7 @@ using System;
 using ControleDeEstoque.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleDeEstoque.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260526011526_FixDb")]
+    partial class FixDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,6 +66,12 @@ namespace ControleDeEstoque.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("cdMovimentacaoEstoque"));
 
+                    b.Property<int>("MotivocdMotivo")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProdutocdProduto")
+                        .HasColumnType("integer");
+
                     b.Property<bool?>("cancelado")
                         .HasColumnType("boolean");
 
@@ -98,9 +107,9 @@ namespace ControleDeEstoque.Migrations
 
                     b.HasKey("cdMovimentacaoEstoque");
 
-                    b.HasIndex("cdMotivo");
+                    b.HasIndex("MotivocdMotivo");
 
-                    b.HasIndex("cdProduto");
+                    b.HasIndex("ProdutocdProduto");
 
                     b.ToTable("cadMovimentacaoEstoque");
                 });
@@ -141,13 +150,13 @@ namespace ControleDeEstoque.Migrations
                 {
                     b.HasOne("ControleDeEstoque.Domain.Entities.MotivosModel", "Motivo")
                         .WithMany()
-                        .HasForeignKey("cdMotivo")
+                        .HasForeignKey("MotivocdMotivo")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ControleDeEstoque.Domain.Entities.ProdutoModel", "Produto")
                         .WithMany()
-                        .HasForeignKey("cdProduto")
+                        .HasForeignKey("ProdutocdProduto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

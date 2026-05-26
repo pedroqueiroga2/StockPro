@@ -23,12 +23,12 @@ public class MovimentacaoEstoqueServices : IMovimentacaoEstoqueServices
 
             vlUnitario = (decimal)vlUnitario,
             vlTotal = (decimal)valorTotal,
-
+            tpMovimentacao = "Teste",
             qtSaldoFinal = qtSaldoFinal,
 
             //dsObservacao = "Entrada de produtos no estoque",
 
-            dtMovimentacao = DateTime.Now,
+            dtMovimentacao = DateTime.UtcNow,
             dtAlteracao = null,
 
             cancelado = false

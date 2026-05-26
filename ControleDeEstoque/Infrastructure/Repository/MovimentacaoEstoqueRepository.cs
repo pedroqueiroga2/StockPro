@@ -24,7 +24,7 @@ public class MovimentacaoEstoqueRepository:IMovimentacaoEstoqueRepository
             {
             
             await _context.cadMovimentacaoEstoque.AddAsync(movimentacao);
-            _context.SaveChangesAsync();
+             await _context.SaveChangesAsync();
             }
                 return movimentacao;
            
