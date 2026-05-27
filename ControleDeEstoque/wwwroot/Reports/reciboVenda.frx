@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="05/27/2026 17:30:00" ReportInfo.Modified="05/27/2026 20:44:53" ReportInfo.CreatorVersion="2026.2.0.0">
+  <Dictionary>
+    <Parameter Name="NomeProduto" DataType="System.String" AsString=""/>
+    <Parameter Name="Quantidade" DataType="System.String" AsString=""/>
+    <Parameter Name="DataMovimentacao" DataType="System.String" AsString=""/>
+    <Parameter Name="Cliente" DataType="System.String" AsString=""/>
+    <Parameter Name="Telefone" DataType="System.String" AsString=""/>
+    <Parameter Name="Endereco" DataType="System.String" AsString=""/>
+    <Parameter Name="total" DataType="System.String" AsString=""/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="141.75" Border.Lines="Left, Right, Top">
+      <PictureObject Name="Picture1" Left="75.6" Top="9.45" Width="151.2" Height="122.85" Image=""/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="149.75" Width="718.2" Height="170.1" Border.Lines="Left, Right">
+      <TextObject Name="Text1" Left="103.95" Top="18.9" Width="47.25" Height="18.9" Text="Data" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Left="160.65" Top="18.9" Width="94.5" Height="18.9" Text="[DataMovimentacao]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="103.95" Top="56.7" Width="66.15" Height="18.9" Text="Cliente:" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="368.55" Top="18.9" Width="66.15" Height="18.9" Text="Telefone: " VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text5" Left="103.95" Top="94.5" Width="85.05" Height="18.9" Text="Endereço: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text6" Left="170.1" Top="56.7" Width="330.75" Height="18.9" Border.Lines="Bottom" Text="[Cliente]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text7" Left="444.15" Top="18.9" Width="141.75" Height="18.9" Border.Lines="Bottom" Text="[Telefone]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="198.45" Top="94.5" Width="302.4" Height="18.9" Border.Lines="Bottom" Text="[Endereco]" VertAlign="Center" Font="Arial, 10pt"/>
+      <ShapeObject Name="Shape3" Left="47.25" Top="9.45" Width="595.35" Height="141.75" Border.Color="DimGray" Border.Width="2"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="327.85" Width="718.2" Height="207.9" Border.Lines="Left, Right">
+      <TableObject Name="Table1" Left="94.5" Top="28.35" Width="515.37" Height="75.6">
+        <TableColumn Name="Column1" Width="171.79"/>
+        <TableColumn Name="Column2" Width="171.79"/>
+        <TableColumn Name="Column3" Width="171.79"/>
+        <TableRow Name="Row1" Height="37.8">
+          <TableCell Name="Cell1" Border.Lines="All" Text="[NomeProduto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell2" Border.Lines="All" Text="[Quantidade]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell3" Border.Lines="All" Text="[DataMovimentacao]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="37.8">
+          <TableCell Name="Cell4" Font="Arial, 10pt"/>
+          <TableCell Name="Cell5" Font="Arial, 10pt, style=Bold">
+            <TextObject Name="Text9" Left="37.8" Top="9.45" Width="94.5" Height="18.9" Text="TOTAL" HorzAlign="Center" VertAlign="Center" Font="Arial, 16pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell6" Text="[total]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="543.75" Width="718.2" Height="170.1" Border.Lines="Left, Right, Bottom"/>
+  </ReportPage>
+</Report>

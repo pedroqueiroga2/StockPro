@@ -1,5 +1,7 @@
 ﻿using ControleDeEstoque.Application.DTO;
 using ControleDeEstoque.Application.Interfaces;
+using ControleDeEstoque.Domain.Entities;
+
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -10,13 +12,15 @@ public class ProdutoController : Controller
 {
     private readonly IProdutoServices _produtoServices;
     private readonly IMotivosServices _motivosServices;
+    private readonly IMovimentacaoEstoqueServices _movimentacaoServices;
+    private readonly IRelatoriosServices _relatoriosServices;
 
-  
-
-    public ProdutoController(IProdutoServices produtoServices, IMotivosServices motivosServices)
+    public ProdutoController(IProdutoServices produtoServices, IMotivosServices motivosServices, IMovimentacaoEstoqueServices movimentacaoServices, IRelatoriosServices relatoriosServices)
     {
         _produtoServices = produtoServices;
         _motivosServices = motivosServices;
+        _movimentacaoServices = movimentacaoServices;
+        _relatoriosServices = relatoriosServices;
     }
 
     [HttpGet]
@@ -36,6 +40,24 @@ public class ProdutoController : Controller
 
 
     }
+
+    [HttpGet]
+    public async Task<IActionResult> ImprimirSaida(int movimentacaoId)
+    {
+        try
+        {
+            byte[] pdfBytes = await _relatoriosServices.ImprimirSaida(movimentacaoId);
+
+            Response.Headers.Append("Content-Disposition", "inline; filename=reciboDeVenda.pdf");
+            return File(pdfBytes, "application/pdf");
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+
+    }
+
 
     [HttpGet]
     public async Task<IActionResult> ConfirmacaoDeExclusao(int id)
@@ -148,11 +170,23 @@ public class ProdutoController : Controller
         try
         {
             var produto = await _produtoServices.SaidaDeProduto(id, quantidade);
-            return RedirectToAction("Index");
+
+            var movimentacaoGeradaId = await _produtoServices.SaidaDeProduto(id, quantidade);
+
+            return RedirectToAction("SaidaSucesso", new { movimentacaoId = movimentacaoGeradaId });
+
         }
         catch
         {
             return StatusCode(500);
         }
+    }
+
+    [HttpGet]
+    public IActionResult SaidaSucesso(int movimentacaoId)
+    {
+       
+        ViewBag.MovimentacaoId = movimentacaoId;
+        return View();
     }
 }

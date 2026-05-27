@@ -6,4 +6,6 @@ public interface IMovimentacaoEstoqueServices
 {
     Task<MovimentacaoEstoqueModel> Create(int cdProduto, int cdMotivo, double vlUnitario, double valorTotal, int qtSaldoFinal);
     Task<IEnumerable<MovimentacaoEstoqueModel>> listarTodos();
+
+    Task<MovimentacaoEstoqueModel> BuscarPorId(int id);
 }

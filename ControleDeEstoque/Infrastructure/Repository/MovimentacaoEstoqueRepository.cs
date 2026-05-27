@@ -1,10 +1,11 @@
 ﻿using ControleDeEstoque.Domain.Data;
 using ControleDeEstoque.Domain.Entities;
 using ControleDeEstoque.Domain.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeEstoque.Infrastructure.Repository;
 
-public class MovimentacaoEstoqueRepository:IMovimentacaoEstoqueRepository
+public class MovimentacaoEstoqueRepository : IMovimentacaoEstoqueRepository
 {
 
     private readonly AppDbContext _context;
@@ -14,6 +15,13 @@ public class MovimentacaoEstoqueRepository:IMovimentacaoEstoqueRepository
     public MovimentacaoEstoqueRepository(AppDbContext context)
     {
         _context = context;
+    }
+
+    public async Task<MovimentacaoEstoqueModel> BuscarPorId(int id)
+    {
+       return await _context.cadMovimentacaoEstoque
+            .Include(a => a.Produto)
+            .FirstOrDefaultAsync(a => a.cdMovimentacaoEstoque == id);
     }
 
     public async Task<MovimentacaoEstoqueModel> Create(MovimentacaoEstoqueModel movimentacao)

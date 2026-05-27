@@ -8,14 +8,33 @@ public class MovimentacaoEstoqueServices : IMovimentacaoEstoqueServices
 {
 
     private readonly IMovimentacaoEstoqueRepository _movimentacaoEstoqueRepository;
+    private readonly IProdutoRepository _produtoRepository;
 
-    public MovimentacaoEstoqueServices(IMovimentacaoEstoqueRepository repository)
+    public MovimentacaoEstoqueServices(IMovimentacaoEstoqueRepository movimentacaoEstoqueRepository, IProdutoRepository produtoRepository)
     {
-        _movimentacaoEstoqueRepository = repository;
+        _movimentacaoEstoqueRepository = movimentacaoEstoqueRepository;
+        _produtoRepository = produtoRepository;
+    }
+
+    public async Task<MovimentacaoEstoqueModel> BuscarPorId(int id)
+    {
+        try
+        {
+           
+               var movimentacao = await  _movimentacaoEstoqueRepository.BuscarPorId(id);
+                return movimentacao;
+            
+        }
+        catch (Exception ex) 
+        {
+            throw ex;
+        }
     }
 
     public async Task<MovimentacaoEstoqueModel> Create(int cdProduto, int cdMotivo, double vlUnitario, double valorTotal, int qtSaldoFinal)
     {
+
+        var produto = await _produtoRepository.ObterProdutoPorId(cdProduto);
         var movimentacao = new MovimentacaoEstoqueModel
         {
             cdProduto = cdProduto,

@@ -10,12 +10,12 @@ namespace ControleDeEstoque.Application.Services
 
         private readonly IProdutoRepository _produtoRepository;
 
-        private readonly IMovimentacaoEstoqueServices _movimentacaoEstoqueServices;
+        private readonly IMovimentacaoEstoqueRepository _movimentacaoEstoqueRepository;
 
-        public ProdutoServices(IProdutoRepository produtoRepository, IMovimentacaoEstoqueServices movimentacaoEstoqueServices)
+        public ProdutoServices(IProdutoRepository produtoRepository, IMovimentacaoEstoqueRepository movimentacaoEstoqueRepository)
         {
             _produtoRepository = produtoRepository;
-            _movimentacaoEstoqueServices = movimentacaoEstoqueServices;
+            _movimentacaoEstoqueRepository = movimentacaoEstoqueRepository;
         }
 
         public async Task<ProdutoModel> AdicionarEntradaProduto(int id, int quantidade)
@@ -121,19 +121,35 @@ namespace ControleDeEstoque.Application.Services
             return ListarTodos;
         }
 
-        public async Task<ProdutoModel> SaidaDeProduto(int id, int quantidade)
+       
+        public async Task<int> SaidaDeProduto(int id, int quantidade)
         {
             var produto = await ObterProdutoPorId(id);
-
+            int movimentacaoGerada = 0;
             if (produto != null) 
             {
                 produto.qtdEstoque -= quantidade;
 
                 var valorTotalSaida = produto.Preco * quantidade;
-               await  _movimentacaoEstoqueServices.Create(id, 2, produto.Preco, valorTotalSaida, produto.qtdEstoque);
+                var novaMovimentacao = await _movimentacaoEstoqueRepository.Create(new MovimentacaoEstoqueModel
+                {
+                    cdProduto = id,
+                    Produto = produto,
+                    cdMotivo = 2,
+                    vlUnitario = (decimal)produto.Preco,
+                    vlTotal = (decimal)valorTotalSaida,
+                    qtSaldoFinal = produto.qtdEstoque,
+                    qtMovimentacao = quantidade,                    
+                    dtMovimentacao = DateTime.UtcNow,     
+                    cancelado = false
+                });
+                movimentacaoGerada = novaMovimentacao.cdMovimentacaoEstoque;
+                
+                
                 await _produtoRepository.AtualizarProduto(id);
+
             }
-            return produto;
+            return movimentacaoGerada;
         }
     }
 }

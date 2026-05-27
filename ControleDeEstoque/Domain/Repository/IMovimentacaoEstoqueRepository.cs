@@ -6,4 +6,5 @@ public interface IMovimentacaoEstoqueRepository
 {
     Task<MovimentacaoEstoqueModel> Create(MovimentacaoEstoqueModel movimentacao);
     Task<IEnumerable<MovimentacaoEstoqueModel>> listarTodos();
+    Task<MovimentacaoEstoqueModel> BuscarPorId(int id);
 }

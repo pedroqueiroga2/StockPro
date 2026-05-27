@@ -25,6 +25,9 @@ builder.Services.AddScoped<IMovimentacaoEstoqueRepository, MovimentacaoEstoqueRe
 builder.Services.AddScoped<IMovimentacaoEstoqueServices, MovimentacaoEstoqueServices>();
 
 
+builder.Services.AddScoped<IRelatoriosServices, RelatoriosServices>();
+
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="alert alert-success mt-4">
+    <h4>Saída registrada com sucesso!</h4>
+    <p>O produto foi baixado do estoque corretamente.</p>
+</div>
+
+<!-- A página manda para o seu endpoint que gera e devolve o PDF no FastReport. -->
+<!-- O target="_blank" faz abrir numa nova aba, o que é ótimo para PDFs -->
+<a href="@Url.Action("ImprimirSaida", "Produto", new { movimentacaoId = ViewBag.MovimentacaoId })"
+   target="_blank"
+   class="btn btn-primary">
+    <i class="bi bi-printer"></i> Imprimir Comprovante
+</a>
+
+<a asp-action="Index" class="btn btn-secondary">
+    Voltar ao Início
+</a>
