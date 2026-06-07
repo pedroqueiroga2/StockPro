@@ -33,6 +33,8 @@ public class RelatoriosServices : IRelatoriosServices
 
             report.SetParameterValue("NomeProduto", movimentacao.Produto?.nmProduto ?? "Desconhecido");
             report.SetParameterValue("Quantidade", movimentacao.qtMovimentacao);
+            report.SetParameterValue("PrecoUnitario", movimentacao.Produto?.Preco);
+            report.SetParameterValue("Total", movimentacao.vlTotal);
             report.SetParameterValue("DataMovimentacao", movimentacao.dtMovimentacao.ToString("dd/MM/yyyy HH:mm"));
           
             report.Prepare();
