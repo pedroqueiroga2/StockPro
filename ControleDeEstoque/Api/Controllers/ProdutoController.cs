@@ -91,6 +91,7 @@ public class ProdutoController : Controller
     public async Task<IActionResult> SaidaProduto(int id)
     {
         var produto = await _produtoServices.ObterProdutoPorId(id);
+        ViewBag.ListarMotivos = await _motivosServices.ListaMotivosDeSaida();
 
         // Se não encontrar o produto, retorna erro 404
         if (produto == null)
@@ -165,13 +166,13 @@ public class ProdutoController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> SaidaProduto(int id, int quantidade)
+    public async Task<IActionResult> SaidaProduto(int id, int quantidade, int cdmotivo)
     {
         try
         {
-            var produto = await _produtoServices.SaidaDeProduto(id, quantidade);
+            var produto = await _produtoServices.SaidaDeProduto(id, quantidade, cdmotivo);
 
-            var movimentacaoGeradaId = await _produtoServices.SaidaDeProduto(id, quantidade);
+            var movimentacaoGeradaId = await _produtoServices.SaidaDeProduto(id, quantidade, cdmotivo);
 
             return RedirectToAction("SaidaSucesso", new { movimentacaoId = movimentacaoGeradaId });
 

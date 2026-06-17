@@ -25,17 +25,18 @@
         <label for="quantidade" class="fw-bold">Informe a quantidade de produtos de saída</label>
         <input type="number" name="quantidade" class="form-control sem-seta" required min="1">
     </div>  
-    @* <div class="form-group">
+    <div class="form-group">
         <label for="quantidade" class="fw-bold">Motivo da Saída</label>
-        <input type="number" name="quantidade" class="form-control sem-seta" required min="1">
-    </div> *@
+        @Html.DropDownList("cdMotivo", new SelectList((System.Collections.IEnumerable)ViewBag.ListarMotivos, "cdMotivo", "nmMotivo"),"Selecione um motivo...",
+        new { @class = "form-control" })
+    </div>
 
 
 
 
     <br />
-    <button type="submit" class="btn btn-success" onclick="ModalService.openModal('60%', 'auto')">
-      
+    @* <button type="submit" class="btn btn-success" onclick="ModalService.openModal('60%', 'auto')"> *@
+    <button type="submit" class="btn btn-success">
         Saída
     </button>
 

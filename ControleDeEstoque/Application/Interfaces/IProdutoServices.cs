@@ -12,5 +12,5 @@ public interface IProdutoServices
     Task<ProdutoModel> ObterProdutoPorId(int id);
     Task<ProdutoModel> AdicionarEntradaProduto(int id, int quantidade);
     Task<IEnumerable<ProdutoModel>> BuscaProduto(string nome);
-    Task<int> SaidaDeProduto(int id, int quantidade);
+    Task<int> SaidaDeProduto(int id, int quantidade, int cdMotivo);
 }
